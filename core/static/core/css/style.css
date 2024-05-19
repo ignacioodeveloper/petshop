@@ -1,0 +1,19 @@
+/* Estilos para ocultar el campo de búsqueda en dispositivos móviles */
+@media screen and (max-width: 780px) {
+    #search-bar-1 {
+        display: none;
+    }
+    }
+
+body, html {
+    overflow-x: hidden;
+    }
+/* the slides */
+.slick-slide {
+    margin: 0 10px;
+    }
+/* the parent */
+    .slick-list {
+    margin: 0 -10px;
+    }
+

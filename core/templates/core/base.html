@@ -1,0 +1,312 @@
+{% load static tailwind_tags %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="icon" href="{% static 'core/img/icon.png' %}" />
+    {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
+
+    {% block stylesheet %}
+    {% endblock stylesheet %}
+    {% tailwind_css %}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <title>
+      {% block titulo %}
+
+      {% endblock titulo %}
+
+    </title>
+
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
+    />
+    
+    {% comment %} <!-- bootstrap 5.3 css -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+      crossorigin="anonymous"
+    /> {% endcomment %}
+    
+    
+  </head>
+  <body>
+    <!-- nav-bar -->
+    <nav class="bg-rose-600">
+      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+
+
+
+
+
+          <!-- Mobile menu button-->
+          <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-rose-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-btn">
+              <span class="absolute -inset-0.5"></span>
+              <span class="sr-only">Open main menu</span>
+              <!--
+              Icon when menu is closed.
+  
+              Menu open: "hidden", Menu closed: "block"
+              -->
+              <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+              <!--
+              Icon when menu is open.
+  
+              Menu open: "block", Menu closed: "hidden"
+              -->
+              <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+          </button>
+
+          </div>
+          <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div class="flex flex-shrink-0 items-center">
+              <a href="{% url 'home' %}"><img class="h-8 w-auto rounded-full" src="{% static 'core/img/icon.png' %}" alt="Your Company">
+              </a>
+            </div>
+            <div class="hidden sm:ml-6 sm:block">
+              <div class="flex space-x-4">
+                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                <a href="{% url 'home' %}" class="text-white hover:bg-rose-800	 hover:text-white rounded-md px-3 py-2 text-sm font-medium {% if request.resolver_match.url_name == 'home' %} bg-rose-800	 text-white {% endif %}">Inicio</a>
+                <a href="{% url 'nosotros' %}" class="text-white hover:bg-rose-800	 hover:text-white rounded-md px-3 py-2 text-sm font-medium {% if request.resolver_match.url_name == 'nosotros' %} bg-rose-800		 text-white {% endif %}">Nosotros</a>
+                <a href="{% url 'ropa' %}" class="text-white hover:bg-rose-800	 hover:text-white rounded-md px-3 py-2 text-sm font-medium {% if request.resolver_match.url_name == 'ropa' %} bg-rose-800	 text-white {% endif %}">Concurso</a>
+                {% comment %} 
+                  se muestra solo si hay un elemento en el carrito
+                  cambiar a que se muestre solo con el usuario logeado
+
+                {% endcomment %}
+                {% if mostrar_carrito %}
+                <a href="{% url 'carrito' %}" aria-current="page" class="text-white hover:bg-rose-800 hover:text-white rounded-md px-3 py-2 text-sm font-medium flex items-center">
+                  <svg
+                    class="w-5 h-5 mr-2"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
+                    />
+                  </svg>
+                  {{ cantidad_productos }}
+                </a>
+                {% endif %}
+                
+
+
+
+
+              </div>
+            </div>
+          </div>
+
+          <div>
+
+
+          
+          <form id="search-bar-1" class="flex items-center max-w-lg mx-auto" action="{% url 'home' %}" role="search" method="post">   
+            <div class="relative w-full">
+              {% csrf_token %}
+              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+
+                          <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                          </svg>
+                      </div>
+                      <input type="search" placeholder="Busca tus marcas y productos favoritos" 
+                      aria-label="Search" id="buscar" name="buscar"   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  "/>
+
+            </div>
+
+          </form>
+
+          </div>
+
+          {% if not user.is_authenticated %}
+          <div class="px-3 flex items-center max-w-lg mx-auto">
+            <a href="{% url 'iniciar_sesion' %}"><button type="button" class="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">Ingresar</button></a>
+            <a href="{% url 'registro' %}"><button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">Registrarse</button>            </a>
+          </div>
+
+          {% endif %}
+          {% if user.is_authenticated %}
+
+          <!-- Profile dropdown -->
+          <div class="relative ml-3">
+              <div>
+                  <button type="button" class="relative flex items-center justify-center rounded-full  text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-rose-500-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                      <span class="absolute -inset-1.5"></span>
+                      <span class="sr-only">Open user menu</span>
+                      <h3 class="text-white px-3">Hola {{ user.first_name}} {{ user.last_name }}
+                      {% if user.is_authenticated and user.is_staff or user.is_authenticated and user.is_superuser %}
+
+                      <span class="text-red-700 font-bold">ADMIN</span>
+                      {% endif %}
+
+                      </h3>
+                      {% if user.is_authenticated and not user.is_staff and not user.is_superuser %}
+
+                      <img class="h-8 w-8 rounded-full" src="{{ user.perfil.imagen.url  }}" alt="">
+                      {% endif %}
+
+                  </button>
+              </div>
+          
+              <div class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transition duration-300 transform scale-95" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" >
+                  <!-- Active: "bg-gray-100", Not Active: "" -->
+                  {% if user.is_authenticated and not user.is_staff and not user.is_superuser %}
+
+                  <a href="{% url 'misdatos' %}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Mis Datos</a>
+                  {% endif %}
+                  <a href="{% url 'cambiar_password' %}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Cambiar Contraseña</a>
+                  {% if user.is_authenticated and not user.is_staff and not user.is_superuser %}
+
+                  <a href="{% url 'miscompras' %}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Mis Compras</a>
+                  {% endif %}                  
+                  {% if user.is_authenticated and user.is_staff or user.is_authenticated and user.is_superuser %}
+                  <a href="{% url 'administracion' %}" class="block px-4 py-2 text-sm text-blue-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Panel Administrador</a>
+                  {% endif %}
+                  
+                  {% csrf_token %}
+                  <a href="{% url 'salir' %}" class="block px-4 py-2 text-sm text-red-700" role="menuitem" tabindex="-1" id="user-menu-item-3">Cerrar Sesion</a>
+              
+                </div>
+          </div>
+          {% endif %}
+
+
+
+          </div>
+        </div>
+      </div>
+    
+      <!-- Mobile menu, show/hide based on menu state. -->
+      <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2">
+          <form id="search-bar" class="flex items-center max-w-lg mx-auto">   
+              <label for="voice-search" class="sr-only">Search</label>
+              <div class="relative w-full">
+                  <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+
+                      <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                      </svg>
+                  </div>
+                  <input type="text" id="voice-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  " placeholder="Busca tus marcas y productos favoritos" required />
+
+              </div>
+              <!-- <button type="submit" class="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                  </svg>Search
+              </button> -->
+          </form>
+          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+
+
+
+          <a href="{% url 'home' %}" class="text-white hover:bg-rose-800 hover:text-white  block rounded-md px-3 py-2 text-base font-medium {% if request.resolver_match.url_name == 'home' %} bg-rose-800	 text-white {% endif %}" aria-current="page">Inicio</a>
+          <a href="{% url 'nosotros' %}" class="text-white hover:bg-rose-800 hover:text-white block rounded-md px-3 py-2 text-base font-medium {% if request.resolver_match.url_name == 'nosotros' %} bg-rose-800		 text-white {% endif %}">Nosotros</a>
+          <a href="{% url 'ropa' %}" class="text-white hover:bg-rose-800 hover:text-white block rounded-md px-3 py-2 text-base font-medium {% if request.resolver_match.url_name == 'ropa' %} bg-rose-800	 text-white {% endif %}">Concurso</a>
+        </div>
+      </div>
+    </nav>
+
+
+    
+
+
+
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    
+
+  <footer class="">
+    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+      <span class="text-sm text-gray-700 sm:text-center ">© 2023 Mascotas Felices encuentranos en: Moneda 627, Santiago
+    </span>
+    <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500  sm:mt-0">
+        <li>
+            <a href="#" class="hover:underline me-4 md:me-6">Facebook</a>
+        </li>
+        <li>
+            <a href="#" class="hover:underline me-4 md:me-6">Instagram</a>
+        </li>
+        <li>
+            <a href="#" class="hover:underline me-4 md:me-6">WhatsApp</a>
+        </li>
+        <li>
+            <a href="#" class="hover:underline">+56 9 465 456 45</a>
+        </li>
+    </ul>
+    </div>
+  </footer>
+
+
+
+
+    <!-- cdn bootstrap -->
+    <!-- cdn jquery tiene que ir antes de js/script.js
+    tiene que leer primero el jquery y despues el js -->
+
+
+    {% comment %}<script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+      crossorigin="anonymous"
+    ></script>{% endcomment %}
+    <script
+    src="https://code.jquery.com/jquery-3.6.4.js"
+    integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+
+    <!-- script archivo js -->
+    {% block script %}
+
+    {% endblock script %}
+
+    <script src="{% static 'core/js/script.js' %}"></script>
+
+
+
+
+
+  </body>
+</html>
