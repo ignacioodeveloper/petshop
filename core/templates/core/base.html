@@ -48,18 +48,18 @@
     
   </head>
   <body>
-    <!-- nav-bar -->
-    <nav class="bg-rose-600">
-      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div class="relative flex h-16 items-center justify-between">
-          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+<!-- nav-bar -->
+<nav class="bg-rose-600">
+  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="relative flex h-16 items-center justify-between">
+      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
 
 
 
 
 
           <!-- Mobile menu button-->
-          <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-rose-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-btn">
+      <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-rose-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-btn">
               <span class="absolute -inset-0.5"></span>
               <span class="sr-only">Open main menu</span>
               <!--
@@ -205,11 +205,11 @@
 
 
           </div>
-        </div>
-      </div>
+    </div>
+  </div>
     
       <!-- Mobile menu, show/hide based on menu state. -->
-      <div class="sm:hidden hidden" id="mobile-menu">
+  <div class="sm:hidden hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pb-3 pt-2">
           <form id="search-bar" class="flex items-center max-w-lg mx-auto">   
               <label for="voice-search" class="sr-only">Search</label>
@@ -237,8 +237,8 @@
           <a href="{% url 'nosotros' %}" class="text-white hover:bg-rose-800 hover:text-white block rounded-md px-3 py-2 text-base font-medium {% if request.resolver_match.url_name == 'nosotros' %} bg-rose-800		 text-white {% endif %}">Nosotros</a>
           <a href="{% url 'ropa' %}" class="text-white hover:bg-rose-800 hover:text-white block rounded-md px-3 py-2 text-base font-medium {% if request.resolver_match.url_name == 'ropa' %} bg-rose-800	 text-white {% endif %}">Concurso</a>
         </div>
-      </div>
-    </nav>
+  </div>
+</nav>
 
 
     

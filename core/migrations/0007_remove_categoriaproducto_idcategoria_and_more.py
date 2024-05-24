@@ -21,13 +21,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='categoriaproducto',
             name='id',
-            field=models.BigAutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID'),
+            field=models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID'),
             preserve_default=False,
         ),
+
+
+
         migrations.AddField(
             model_name='producto',
             name='id',
-            field=models.BigAutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID'),
+            field=models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID'),
             preserve_default=False,
         ),
     ]

@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
 });
   
+
+
 // responsibe menu
 document.addEventListener('DOMContentLoaded', function() {
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -38,6 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
         });
 });
+
+
+
 
 
 $(document).ready(function(){

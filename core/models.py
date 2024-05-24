@@ -56,11 +56,11 @@ class Producto(models.Model):
 
         return f'{self.nombre} (ID {self.id})'
     
-    # class Meta:
-    #     db_table = 'Producto'
-    #     verbose_name = "Producto"
-    #     verbose_name_plural = "Productos"
-    #     ordering = ['categoriaProducto', 'nombreProducto']
+    class Meta:
+        db_table = 'Producto'
+        verbose_name = "Producto"
+        verbose_name_plural = "Productos"
+        ordering = ['categoria', 'nombre']
 
 
 

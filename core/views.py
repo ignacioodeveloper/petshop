@@ -249,8 +249,9 @@ def cambiar_estado_boleta(request, nro_boleta, estado):
     return redirect(ventas)
 
 def miscompras(request):
+    #     user = User.objects.get(username='usuario_cliente')
 
-    user = User.objects.get(username='usuario_cliente')
+    user = User.objects.get(username=request.user)
     perfil = Perfil.objects.get(user=user)
 
     boletas = Boleta.objects.filter(cliente=perfil)
@@ -400,9 +401,9 @@ def obtener_info_producto(producto_id):
     stock = Bodega.objects.filter(producto_id=producto_id).exclude(detalleboleta__isnull=False).count()
     
     # Preparar texto para mostrar estado: en oferta, sin oferta y agotado
-    con_oferta = f'<span class="font-bold text-rose-700"> {producto.descuento_oferta}% DE DESCUENTO </span>'
-    sin_oferta = '<span class="font-bold"> DISPONIBLE</span>'
-    agotado = '<span class="text-red-700 font-bold"> AGOTADO </span>'
+    con_oferta = f'<span class="text-primary"> EN OFERTA {producto.descuento_oferta}% DE DESCUENTO </span>'
+    sin_oferta = '<span class="text-success"> DISPONIBLE EN BODEGA </span>'
+    agotado = '<span class="text-danger"> AGOTADO </span>'
 
     if stock == 0:
         estado = agotado
@@ -411,7 +412,7 @@ def obtener_info_producto(producto_id):
 
     # Preparar texto para indicar cantidad de productos en stock
     # en_stock = f'En stock: {formatear_numero(stock)} {"unidad" if stock == 1 else "unidades"}'
-    en_stock = f'<div><span>En stock: </span> <span> {formatear_numero(stock)} {"unidad" if stock == 1 else "unidades"} </span></div>'
+    en_stock = f'<div class="d-flex justify-content-between"><span>En stock: </span> <span> {formatear_numero(stock)} {"unidad" if stock == 1 else "unidades"} </span></div>'
 
     return {
         'id': producto.id,
@@ -436,10 +437,11 @@ def obtener_html_precios_producto(producto):
     
     precio_normal, precio_oferta, precio_subscr, hay_desc_oferta, hay_desc_subscr = calcular_precios_producto(producto)
     
-    normal = f'<div class="mb-2"><span class="font-semibold">Normal:</span> <span>{formatear_dinero(precio_normal)}</span></div>'
-    tachar = f'<div class="mb-2"><span class="font-semibold">Antes:</span> <span class="line-through text-red-500"> {formatear_dinero(precio_normal)} </span></div>'
-    oferta = f'<div class="mb-2"><span class="font-semibold">Oferta:</span> <span class="text-green-500"> {formatear_dinero(precio_oferta)} </span></div>'
-    subscr = f'<div class="mb-2"><span class="font-semibold">Subscrito:</span> <span class="text-blue-500"> {formatear_dinero(precio_subscr)} </span></div>'
+    normal = f'<div class="d-flex justify-content-between"><span>Normal:</span> <span>{formatear_dinero(precio_normal)}</span></div>'
+    tachar = f'<div class="d-flex justify-content-between"><span>Normal:</span> <span class="text-decoration-line-through"> {formatear_dinero(precio_normal)} </span></div>'
+    oferta = f'<div class="d-flex justify-content-between"><span>Oferta:</span> <span class="text-success fw-bold"> {formatear_dinero(precio_oferta)} </span></div>'
+    subscr = f'<div class="d-flex justify-content-between"><span>Subscrito:</span> <span class="text-danger fw-bold"> {formatear_dinero(precio_subscr)} </span></div>'
+
     if hay_desc_oferta > 0:
         texto_precio = f'{tachar}{oferta}'
     else:
@@ -449,8 +451,6 @@ def obtener_html_precios_producto(producto):
         texto_precio += f'{subscr}'
 
     return texto_precio
-
-
 
 def salir(request):
     logout(request)

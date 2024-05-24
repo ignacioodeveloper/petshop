@@ -8,6 +8,7 @@ from django.forms.widgets import ClearableFileInput
 form_file = {'class': 'form-control-file form-control form-control-sm', 'title': 'Debe subir una imagen'}
 form_select = {'class':'form-select form-control form-control-sm'}
 form_text_area = {'class': 'form-control form-control-sm', 'rows': 2, 'placeholder':'Ingrese una descripcion'}
+form_control = {'class': 'form-control form-control-sm', 'placeholder':'Ingrese el Nombre del Producto'}
 form_precio = {'class':'form-control', 'placeholder':'Ingrese el precio'}
 form_desc = {'class': 'form-control', 'placeholder':'3%'}
 form_descOferta = {'class': 'form-control', 'placeholder':'5%'}
@@ -21,9 +22,6 @@ form_control_registro = {'class': 'form-control form-control-sm'}
 form_hidden = {'class': 'd-none'}
 form_check = {'class': 'form-check-input'}
 form_password = {'class': 'form-control text-danger', 'value': '123'}
-form_control = {'class': 'form-control form-control-sm', 'placeholder':'Ingrese el Nombre del Producto'}
-
-form_tailwind = {'class': 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'}
 
 class ProductoForm(ModelForm):
     
@@ -52,17 +50,11 @@ class ProductoForm(ModelForm):
 
 
 class IngresarForm(Form):
-    username = forms.CharField(widget=forms.TextInput(attrs=form_control), label="Ingrese el nombre de usuario")
-    password = forms.CharField(widget=forms.PasswordInput(attrs=form_control), label="Ingrese la contraseña")
-
+    
+    username = forms.CharField(widget=forms.TextInput(attrs=form_control), label="Cuenta")
+    password = forms.CharField(widget=forms.PasswordInput(attrs=form_control), label="Contraseña")
     class Meta:
         fields = ['username', 'password']
-# class IngresarForm(Form):
-    
-#     username = forms.CharField(widget=forms.TextInput(attrs=form_control), label="Cuenta")
-#     password = forms.CharField(widget=forms.PasswordInput(attrs=form_control), label="Contraseña")
-#     class Meta:
-#         fields = ['username', 'password']
 
 class BodegaForm(forms.Form):
 
@@ -104,7 +96,7 @@ class RegistroClienteForm(UserCreationForm):
         label='Subscrito',
         widget=forms.CheckboxInput(attrs=form_check),
     )
-    imagen = forms.ImageField(
+    imagen = forms.CharField(
         required=True,
         label='Imagen',
         widget=forms.FileInput(attrs=form_file_imagen),
