@@ -31,7 +31,7 @@
     {% for producto in productos %}
     <div class="w-auto max-w-sm bg-gray-200 border-gray-200 rounded-lg shadow">
       <a href="{% url 'ficha' producto.id %}">
-        <img class="p-8 rounded-t-lg" src="/media/{{ producto.imagen }}" alt="product image" />
+        <img class="p-8 rounded-t-lg" src="{{ producto.imagen.url }}" alt="product image" />
       </a>
       <div class="px-5 pb-5">
         <a href="#" class="">
